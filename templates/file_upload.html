@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Currency Detector</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif;
+background: rgb(254, 255, 255);
+background: linear-gradient(0deg, rgb(215, 221, 221) 0%, rgb(234, 234, 233) 100%);
+background-size: 100% 100vh;
+}
+.mySlides {display: none}
+#preview {
+  width: 500px;
+  height: 200px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.Padding{
+    padding-bottom: 30px;
+}
+button{
+    top:50%;
+    background-color:#0a0a23;
+    color: #fff;
+    border:none;
+    border-radius:10px;
+    box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+}
+</style>
+</head>
+<body >
+
+<!-- Navbar -->
+<div class="w3-top">
+
+  <div class="w3-bar  w3-card" style="height: 50px; font-size: 20px; background-color: rgb(38, 0, 107); color: aliceblue;">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">CURRENCY DETECTOR</a>
+  </div>
+</div>
+
+  <!-- The Band Section -->
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:900px" id="band">
+    <h2 class="w3-wide"   style="font-weight: bold;">THE CURRENCY DETECTON</h2>
+    <p class="w3-opacity"><i>BUILD TRUST WITH US</i></p>
+    <p class="w3-center"  style="font-size: 18px;">Currency recognition and currency calculator is software tool through which we can identify the currency notes and 
+        categorize them. This software will also help to add different currency present in image. The software will use advanced computer vision 
+        algorithms and machine learning techniques to achieve high accuracy and speed.This project will also help people to identify notes into different categorizes and add the currency notes present in image.
+    </p>
+    <div class="Padding"></div>
+    <div class="Padding"></div>
+
+      <form enctype="multipart/form-data">
+        <input class="w3-button " type="file" name="image1" onchange="previewImage(event)">
+        <button class="w3-button" type="submit">Upload</button>
+      </form>
+      <div class="Padding"></div>
+      <div class="Padding"></div>
+
+      <img id="preview" style="width: 600px; height: 300px; ">
+      <div class="Padding"></div>
+      <h2 class="w3-wide"  style="font-weight: bold;" >COMPARISION RESULTS</h1>
+      <h3 class="w3-wide w3-opacity" id="result"></h3>
+  </div>
+
+  
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch('/', {
+        method: 'POST',
+        body: formData,
+      });
+      const result = await response.json();
+      console.log(result);
+      document.getElementById("result").innerHTML =JSON.stringify(result.result+" Pkr");
+    });
+
+    function previewImage(event) {
+    document.getElementById("result").innerHTML="Pkr"
+    const file = event.target.files[0];
+    const preview = document.getElementById("preview");
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+        preview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+    }
+
+  </script>
+
+</body>
+</html>
+
